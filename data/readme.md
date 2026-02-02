@@ -1,1 +1,11 @@
 This project will use spatial and environmental datasets to examine how urbanization impacts water quality. Planned datasets include land use and urban development layers, watershed and hydrology boundaries, and water quality monitoring data such as nutrient concentrations, chlorophyll-a, and other indicators relevant to harmful algal blooms.
+| Dataset Name                      | Description                                                                        | Data Type        | Spatial Scale         | Source                       |
+| --------------------------------- | ---------------------------------------------------------------------------------- | ---------------- | --------------------- | ---------------------------- |
+| Land Use / Land Cover (NLCD)      | Classified land cover data used to quantify urbanization and impervious surfaces   | Raster / Polygon | National / Regional   | USGS                         |
+| Impervious Surface Area           | Percent impervious surface derived from land cover data                            | Raster           | National / Regional   | USGS NLCD                    |
+| Watershed Boundaries (HUC)        | Hydrologic unit boundaries used to delineate watersheds and sub-watersheds         | Polygon          | Regional              | USGS                         |
+| Water Quality Monitoring Stations | Locations of sampling stations measuring nutrients, chlorophyll-a, turbidity, etc. | Point            | Local / Regional      | EPA, State Agencies          |
+| Nutrient Concentration Data       | Time-series measurements of nitrogen and phosphorus concentrations                 | Table / Point    | Local                 | EPA STORET / State Databases |
+| Harmful Algal Bloom Observations  | Records of HAB occurrences and bloom severity                                      | Point / Table    | Regional              | State Water Boards           |
+| Population Density                | Population counts and density used as an urbanization indicator                    | Polygon          | Census Tract / County | U.S. Census                  |
+| Transportation Networks           | Road and highway layers used to represent urban infrastructure                     | Line             | Regional              | Census TIGER / OpenStreetMap |
