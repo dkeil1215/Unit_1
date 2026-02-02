@@ -1,1 +1,1 @@
-Add data sources to the data folder
+This project will use spatial and environmental datasets to examine how urbanization impacts water quality. Planned datasets include land use and urban development layers, watershed and hydrology boundaries, and water quality monitoring data such as nutrient concentrations, chlorophyll-a, and other indicators relevant to harmful algal blooms.
