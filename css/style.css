@@ -1,1 +1,49 @@
 /*Add CSS styles here*/
+
+h1, h2 {
+    color: white;
+    background-color: #839788;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; 
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    margin: auto;
+}
+
+#mapHeader {
+    color: white;
+    background-color: #BFD7EA;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    margin: auto;
+}
+
+#map {
+    background-color: white;
+    width: 50%;
+    height: 100px;
+    margin: auto;
+    text-align: center;
+    font-style: italic;
+    outline-style: groove;
+    outline-color: #BAA898;
+}
+
+p {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 10px;
+    color: #000000;
+    
+}
+
+html {
+    background-color: #EEE0CB;
+}
+
+/*
+color hex codes
+-------------------
+black: #000000
+sage green: #839788
+light tan: #EEE0CB
+tan: #BAA898
+light blue: #BFD7EA
+*/
