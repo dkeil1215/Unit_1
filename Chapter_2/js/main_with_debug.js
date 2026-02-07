@@ -1,84 +1,80 @@
-var myDiv =  document.getElementById("mydiv");
-myDiv.innerHTML = "Hello World";
+function initialize() {
+    cities();
+}
 
-function myFunc(){
-    var myDiv =  document.getElementById("mydiv");
-    myDiv.innerHTML = "Hello World.";
-};
+// function to create a table with cities and their populations
+function cities() {
+    var cities = [
+        "Madison",
+        "Milwaukee",
+        "Green Bay",
+        "Superior"
+    ];
 
-window.onload = myFunc();
+    var population = [
+        233209,
+        594833,
+        104057,
+        27244
+    ];
 
-var cityPop = [
-	{ 
-		city: 'Madison',
-		population: 233209
-	},
-	{
-		city: 'Milwaukee',
-		population: 594833
-	},
-	{
-		city: 'Green Bay',
-		population: 104057
-	},
-	{
-		city: 'Superior',
-		population: 27244
-	}
-];
+    // create a table element
+    var table = document.createElement("table");
 
-function addColumns(cityPop){
-    
-    document.querySelectorAll("tr").forEach(function(row, i){
+    // create a header row
+    var headerRow = document.createElement("tr");
 
-    	if (i == 0){
+    // city header
+    var cityHeader = document.createElement("th");
+    cityHeader.innerHTML = "City";
+    headerRow.appendChild(cityHeader);
 
-    		row.insertAdjacntHTML('beforeend', '<th>City Size</th>');
-    	} else {
+    // population header
+    var popHeader = document.createElement("th");
+    popHeader.innerHTML = "Population";
+    headerRow.appendChild(popHeader);
 
-    		var citySize;
+    // city size header
+    var sizeHeader = document.createElement("th");
+    sizeHeader.innerHTML = "City Size";
+    headerRow.appendChild(sizeHeader);
 
-    		if (cityPop[i-1].population < 100000){
-    			citySize = 'Small';
+    // add header row to table
+    table.appendChild(headerRow);
 
-    		} else if (cityPop[i-1].population < 500000){
-    			citysize = 'Medium';
+    // loop through cities
+    for (var i = 0; i < cities.length; i++) {
+        var tr = document.createElement("tr");
 
-    		} else {
-    			citySize = 'Large';
-    		};
+        var city = document.createElement("td");
+        city.innerHTML = cities[i];
+        tr.appendChild(city);
 
-			row.insertAdjacntHTML = '<td' + citySize + '</td>';
-    	};
-    });
-};
+        var pop = document.createElement("td");
+        pop.innerHTML = population[i];
+        tr.appendChild(pop);
 
-function addEvents(){
+        // determine city size
+        var citySize;
+        if (population[i] < 100000) {
+            citySize = "Small";
+        } else if (population[i] < 500000) {
+            citySize = "Medium";
+        } else {
+            citySize = "Large";
+        }
 
-	document.querySelector("table").addEventListener("mouseover", function(){
-		
-		var color = "rgb(";
+        var size = document.createElement("td");
+        size.innerHTML = citySize;
+        tr.appendChild(size);
 
-		for (var i=0; i<3; i++){
+        table.appendChild(tr);
+    }
 
-			var random = Math.round(Math.random() * 255);
+    // add table to div in index.html
+    var mydiv = document.getElementById("mydiv");
+    mydiv.appendChild(table);
+}
 
-			color += "random";
-
-			if (i<2){
-				color += ",";
-			
-			} else {
-				color += ")";
-		};
-
-		document.querySelector("table").color = color;
-	});
-
-	function clickme(){
-
-		alert('Hey, you clicked me!');
-	};
-
-	document.querySelector("table").addEventListener("click", clickme)
-};
+// run initialize when page loads
+window.onload = initialize;
