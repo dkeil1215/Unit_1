@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live USGS Streamflow Map</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Live USGS Streamflow Monitoring Map</h1>
+    <p>
+      Danny Keil GISc-230 Module 8
+    </p>
+  </header>
+
+  <main>
+    <aside class="panel">
+      <h2>Streamflow Dashboard</h2>
+
+      <div class="stat-box">
+        <p><strong>Stations loaded:</strong> <span id="station-count">0</span></p>
+        <p><strong>Total flow:</strong> <span id="total-flow">0</span> cfs</p>
+        <p><strong>Average flow:</strong> <span id="avg-flow">0</span> cfs</p>
+        <p><strong>Last update:</strong> <span id="last-update">Waiting for data...</span></p>
+      </div>
+
+      <div class="controls">
+        <button id="show-all">Show All Stations</button>
+        <button id="high-flow">High Flow Only</button>
+        <button id="refresh-data">Refresh Live Data</button>
+      </div>
+
+      <div class="selected-station">
+        <h3>Selected Station</h3>
+        <p id="station-name">Click a marker</p>
+        <p id="station-details">Station details will appear here.</p>
+      </div>
+
+      <div class="legend">
+        <h3>Legend</h3>
+        <p><span class="dot low"></span> Low flow: under 100 cfs</p>
+        <p><span class="dot medium"></span> Medium flow: 100–500 cfs</p>
+        <p><span class="dot high"></span> High flow: over 500 cfs</p>
+      </div>
+    </aside>
+
+    <section class="map-wrapper">
+      <div id="map"></div>
+    </section>
+  </main>
+
+  <script src="js/main.js"></script>
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxHOTwy-taz1whm0FpiJHIKhazWvCorXM&callback=initMap">
+  </script>
+</body>
+</html>
