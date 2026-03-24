@@ -46,7 +46,7 @@ function initMap() {
     center: { lat: 37.65, lng: -122.1 },
     zoom: 8,
     mapTypeControl: true,
-    streetViewControl: false,
+    streetViewControl: true,
     fullscreenControl: true
   });
 
