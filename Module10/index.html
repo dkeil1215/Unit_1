@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#8b0000" />
+  <title>Bay Area Environmental Dashboard</title>
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <h1>Bay Area Environmental Dashboard</h1>
+    <p>County Patterns Across Time & Space <br />Danny Keil, GISc-230-Module 10</p>
+  </header>
+
+  <section id="controls">
+    <div class="control-group">
+      <label for="mapModeSelect">Map Mode</label>
+      <select id="mapModeSelect">
+        <option value="single">Single Variable</option>
+        <option value="bivariate">Bivariate</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label for="variableSelect">Primary Variable</label>
+      <select id="variableSelect"></select>
+    </div>
+
+    <div class="control-group" id="secondaryVariableGroup" style="display:none;">
+      <label for="variableSelect2">Secondary Variable</label>
+      <select id="variableSelect2"></select>
+    </div>
+
+    <div class="control-group">
+      <label for="yearSelect">Year</label>
+      <select id="yearSelect"></select>
+    </div>
+
+    <div class="control-group">
+      <label for="monthSelect">Month</label>
+      <select id="monthSelect"></select>
+    </div>
+
+    <div class="control-group">
+      <label for="countyCompareSelect">Compare County</label>
+      <select id="countyCompareSelect"></select>
+    </div>
+  </section>
+
+  <section id="summary-panel">
+    <div class="metric-card">
+      <span class="metric-label">Map Mode</span>
+      <span class="metric-value" id="mapModeLabel">--</span>
+    </div>
+    <div class="metric-card">
+      <span class="metric-label">Selected County</span>
+      <span class="metric-value" id="selectedCountyLabel">--</span>
+    </div>
+    <div class="metric-card">
+      <span class="metric-label">Compare County</span>
+      <span class="metric-value" id="comparisonCountyLabel">--</span>
+    </div>
+    <div class="metric-card">
+      <span class="metric-label">Selected Value</span>
+      <span class="metric-value" id="selectedValueLabel">--</span>
+    </div>
+    <div class="metric-card">
+      <span class="metric-label">Compare Value</span>
+      <span class="metric-value" id="comparisonValueLabel">--</span>
+    </div>
+    <div class="metric-card">
+      <span class="metric-label">Regional Mean</span>
+      <span class="metric-value" id="regionalMeanLabel">--</span>
+    </div>
+  </section>
+
+  <main id="dashboard">
+    <section id="map-panel" class="panel">
+      <h2>County Choropleth / Bivariate Map</h2>
+      <div id="map"></div>
+    </section>
+
+    <section id="bar-panel" class="panel">
+      <h2>County Comparison</h2>
+      <div id="barChart"></div>
+    </section>
+
+    <section id="line-panel" class="panel full-width">
+      <h2>County Trend Through Time</h2>
+      <div id="lineChart"></div>
+    </section>
+  </main>
+
+  <div id="tooltip" class="tooltip hidden"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+
+  <script src="js/maps.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/main.js"></script>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./Service-worker.js")
+          .then(() => console.log("Service worker registered"))
+          .catch(error => console.error("Service worker registration failed:", error));
+      });
+    }
+  </script>
+</body>
+</html>

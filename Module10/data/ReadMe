@@ -1,0 +1,27 @@
+README
+Bay Area Environmental Dashboard
+Overview
+
+This project is a mobile-ready web GIS dashboard that visualizes Bay Area county environmental patterns across time and space. 
+It includes a choropleth/bivariate map, a county comparison bar chart, a time-series chart, 
+and basic PWA support through a manifest and service worker.
+
+Files Included
+index.html
+css/style.css
+js/main.js
+js/maps.js
+js/charts.js
+manifest.json
+service-worker.js
+data/ folder with CSV and GeoJSON files
+icons/ folder with app icons
+How to Run
+Open the project folder in VS Code.
+Start a local server using Live Server.
+Open index.html in the browser through the local server.
+For PWA testing, use Chrome and inspect the Application tab in DevTools.
+Notes
+The project is designed for desktop and mobile/narrow-screen use.
+PWA behavior works best when served through localhost or HTTPS.
+If service worker changes do not appear immediately, unregister the service worker and clear site storage in Chrome DevTools, then reload.
