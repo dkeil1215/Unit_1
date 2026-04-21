@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bay Area Shellfish PSP Dashboard</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <h1>Bay Area Shellfish PSP Dashboard</h1>
+    <p>
+      County Level Paralytic Shellfish Poisoning (PSP)<br/>
+      Danny Keil
+  </header>
+
+  <div id="controls">
+    <label for="yearSelect">Filter by Year:</label>
+    <select id="yearSelect"></select>
+  </div>
+
+  <div id="container">
+    <div id="map-panel">
+      <h2>County Choropleth Map</h2>
+      <div id="map"></div>
+    </div>
+
+    <div id="chart-panel">
+      <h2>Average PSP by County</h2>
+      <div id="chart"></div>
+    </div>
+  </div>
+
+  <div id="tooltip" class="tooltip hidden"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+
+  <script src="js/map.js"></script>
+  <script src="js/chart.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

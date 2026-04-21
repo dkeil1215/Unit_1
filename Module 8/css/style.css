@@ -1,0 +1,114 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f8fb;
+  color: #1f2937;
+}
+
+header {
+  background: linear-gradient(135deg, #0f766e, #2563eb);
+  color: white;
+  padding: 1.25rem 1.5rem;
+}
+
+header h1 {
+  margin: 0 0 0.35rem 0;
+  font-size: 1.9rem;
+}
+
+header p {
+  margin: 0;
+  max-width: 850px;
+  line-height: 1.5;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  min-height: calc(100vh - 110px);
+}
+
+.panel {
+  background: white;
+  padding: 1rem;
+  border-right: 1px solid #d1d5db;
+}
+
+.panel h2,
+.panel h3 {
+  margin-top: 0;
+}
+
+.stat-box,
+.selected-station,
+.legend,
+.controls {
+  margin-bottom: 1rem;
+  padding: 0.9rem;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+}
+
+.controls button {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.65rem;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.controls button:hover {
+  background: #1d4ed8;
+}
+
+#map {
+  height: 100%;
+  min-height: 650px;
+  width: 100%;
+}
+
+.dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+.low {
+  background: #3b82f6;
+}
+
+.medium {
+  background: #f59e0b;
+}
+
+.high {
+  background: #ef4444;
+}
+
+@media (max-width: 900px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    border-right: none;
+    border-bottom: 1px solid #d1d5db;
+  }
+
+  #map {
+    min-height: 500px;
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "Bay Area Environmental Dashboard",
+  "short_name": "Bay Env Dashboard",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fff8f7",
+  "theme_color": "#8b0000",
+  "description": "A mobile-ready web GIS dashboard showing county environmental patterns across time and space.",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
