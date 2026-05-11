@@ -10,10 +10,29 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
+  <div id="welcomeModal" class="modal-backdrop">
+    <div class="modal-card">
+      <h2>How to Use This Dashboard</h2>
+      <p>
+        Use the dropdown menus to choose a map mode, variable, year, and month.
+      </p>
+      <p>
+        Click a county on the map or bar chart to select it. Use Compare County
+        to compare two counties in the trend chart.
+      </p>
+      <p>
+        Single Variable mode maps one variable. Bivariate mode maps two variables
+        together using the color grid legend.
+      </p>
+      <button id="closeWelcomeBtn">Start Exploring</button>
+    </div>
+  </div>
+
   <header>
     <h1>Bay Area Environmental Dashboard</h1>
-    <p>County Patterns Across Time & Space <br />Danny Keil, GISc-230-Module 10</p>
+    <p>County Patterns Across Time & Space <br />Danny Keil, GISc-230-Final Project</p>
   </header>
 
   <section id="controls">
@@ -102,7 +121,7 @@
 
   <script src="js/maps.js"></script>
   <script src="js/charts.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=7"></script>
 
   <script>
     if ("serviceWorker" in navigator) {

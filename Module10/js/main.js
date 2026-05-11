@@ -62,6 +62,7 @@ Promise.all([
   buildYearDropdown(availableYears);
   buildMonthDropdown(currentYear);
   buildMapModeDropdown();
+  buildWelcomeModal();
 
   d3.select("#variableSelect").property("value", currentVariable);
   d3.select("#variableSelect2").property("value", currentVariable2);
@@ -72,7 +73,25 @@ Promise.all([
   updateDashboard();
 }).catch(error => {
   console.error("Error loading data:", error);
+  alert("The dashboard could not load. Check your CSV and Bay_Area_Counties.geojson file paths.");
 });
+
+function buildWelcomeModal() {
+  const modal = document.getElementById("welcomeModal");
+  const button = document.getElementById("closeWelcomeBtn");
+
+  if (!modal || !button) return;
+
+  button.addEventListener("click", () => {
+    modal.classList.add("hidden");
+  });
+
+  modal.addEventListener("click", event => {
+    if (event.target === modal) {
+      modal.classList.add("hidden");
+    }
+  });
+}
 
 function detectNumericColumns(data) {
   if (!data.length) return [];
@@ -96,7 +115,9 @@ function detectNumericColumns(data) {
 function cleanCsv(data, variableColumns) {
   return data
     .map(d => {
-      const dateCandidate = d.date ? new Date(d.date) : new Date(+d.year, (+d.month || 1) - 1, 1);
+      const dateCandidate = d.date
+        ? new Date(d.date)
+        : new Date(+d.year, (+d.month || 1) - 1, 1);
 
       const row = {
         county: normalizeCounty(d.county),
@@ -404,7 +425,21 @@ function joinDataToGeoJSON(geojson, singleSummary, bivariateSummary) {
 
 function getCountyName(feature) {
   const p = feature.properties || {};
-  return p.NAME || p.Name || p.name || p.COUNTY || p.County || p.county || p.ADMIN || "Unknown";
+
+  return (
+    p.NAME ||
+    p.Name ||
+    p.name ||
+    p.COUNTY ||
+    p.County ||
+    p.county ||
+    p.COUNTY_NAME ||
+    p.CountyName ||
+    p.NAME10 ||
+    p.NAMELSAD ||
+    p.ADMIN ||
+    "Unknown"
+  );
 }
 
 function updateDashboard() {
@@ -428,6 +463,7 @@ function updateDashboard() {
     }
 
     updateBarChart([], currentVariable, currentYear, currentMonth, null, null);
+
     updateLineChart({
       mode: currentMapMode,
       variable1: currentVariable,
