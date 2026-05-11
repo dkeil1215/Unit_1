@@ -2,7 +2,7 @@ let barSvg, barXScale, barYScale, barXAxisGroup, barYAxisGroup;
 let lineSvg, lineXScale, lineYScale, lineXAxisGroup, lineYAxisGroup;
 
 const barMargin = { top: 36, right: 20, bottom: 120, left: 84 };
-const lineMargin = { top: 36, right: 28, bottom: 96, left: 84 };
+const lineMargin = { top: 36, right: 28, bottom: 140, left: 84 };
 
 function updateBarChart(data, variable, year, month, selectedCounty, comparisonCounty = null) {
   if (!barSvg) initializeBarChart();
@@ -76,7 +76,10 @@ function updateBarChart(data, variable, year, month, selectedCounty, comparisonC
     .attr("height", 0)
     .on("mouseover", function(event, d) {
       highlightBar(d.county);
-      if (typeof highlightMap === "function") highlightMap(d.county);
+
+      if (typeof highlightMap === "function") {
+        highlightMap(d.county);
+      }
 
       if (typeof showTooltip === "function") {
         showTooltip(event, `
@@ -87,15 +90,25 @@ function updateBarChart(data, variable, year, month, selectedCounty, comparisonC
       }
     })
     .on("mousemove", function(event) {
-      if (typeof moveTooltip === "function") moveTooltip(event);
+      if (typeof moveTooltip === "function") {
+        moveTooltip(event);
+      }
     })
     .on("mouseout", function() {
       resetBarHighlight();
-      if (typeof resetMap === "function") resetMap();
-      if (typeof hideTooltip === "function") hideTooltip();
+
+      if (typeof resetMap === "function") {
+        resetMap();
+      }
+
+      if (typeof hideTooltip === "function") {
+        hideTooltip();
+      }
     })
     .on("click", function(event, d) {
-      if (typeof selectCounty === "function") selectCounty(d.county);
+      if (typeof selectCounty === "function") {
+        selectCounty(d.county);
+      }
     })
     .merge(bars)
     .transition()
@@ -106,8 +119,10 @@ function updateBarChart(data, variable, year, month, selectedCounty, comparisonC
     .attr("height", d => innerHeight - (barYScale(d.value) - barMargin.top))
     .attr("fill", d => {
       const county = normalizeCounty(d.county);
+
       if (county === normalizeCounty(selectedCounty)) return "#7f0000";
       if (county === normalizeCounty(comparisonCounty)) return "#d65a5a";
+
       return "#c62828";
     });
 
@@ -258,7 +273,15 @@ function updateLineChart(config) {
     .x(d => lineXScale(d.date))
     .y(d => lineYScale(d.value));
 
-  drawSeries(primary, countyName || "Selected County", "#7f0000", "#7f0000", variable1, lineGenerator, false);
+  drawSeries(
+    primary,
+    countyName || "Selected County",
+    "#7f0000",
+    "#7f0000",
+    variable1,
+    lineGenerator,
+    false
+  );
 
   if (comparison.length) {
     drawSeries(
@@ -277,7 +300,7 @@ function updateLineChart(config) {
       secondary,
       `${countyName || "Selected County"} (${labelize(variable2)})`,
       "#fb03da",
-      "#1f4eb4",
+      "#fb03da",
       variable2,
       lineGenerator,
       true
@@ -288,7 +311,7 @@ function updateLineChart(config) {
         secondaryComparison,
         `${comparisonCountyName || "Comparison County"} (${labelize(variable2)})`,
         "#fb0000",
-        "#cef604",
+        "#fb0000",
         variable2,
         lineGenerator,
         true
@@ -296,7 +319,15 @@ function updateLineChart(config) {
     }
   }
 
-  drawLineLegend(width, countyName, comparisonCountyName, comparison.length > 0, mode, variable2);
+  drawLineLegend(
+    width,
+    height,
+    countyName,
+    comparisonCountyName,
+    comparison.length > 0,
+    mode,
+    variable2
+  );
 }
 
 function drawSeries(seriesData, seriesName, strokeColor, pointColor, variable, lineGenerator, dashed = false) {
@@ -332,73 +363,93 @@ function drawSeries(seriesData, seriesName, strokeColor, pointColor, variable, l
       }
     })
     .on("mousemove", function(event) {
-      if (typeof moveTooltip === "function") moveTooltip(event);
+      if (typeof moveTooltip === "function") {
+        moveTooltip(event);
+      }
     })
     .on("mouseout", function() {
-      if (typeof hideTooltip === "function") hideTooltip();
+      if (typeof hideTooltip === "function") {
+        hideTooltip();
+      }
     });
 }
 
-function drawLineLegend(width, primaryCounty, comparisonCountyName, hasComparison, mode, variable2) {
-  const legendX = Math.max(width - 280, 120);
+function drawLineLegend(width, height, primaryCounty, comparisonCountyName, hasComparison, mode, variable2) {
+  const legendY = height - 34;
+  const legendX = lineMargin.left;
+  const availableWidth = width - lineMargin.left - lineMargin.right;
 
-  const legend = lineSvg.append("g")
-    .attr("class", "legend-group")
-    .attr("transform", `translate(${legendX}, 22)`);
-
-  let row = 0;
-
-  legend.append("line")
-    .attr("x1", 0)
-    .attr("x2", 22)
-    .attr("y1", row)
-    .attr("y2", row)
-    .attr("stroke", "#7f0000")
-    .attr("stroke-width", 3);
-
-  legend.append("text")
-    .attr("x", 30)
-    .attr("y", row + 4)
-    .style("font-size", "12px")
-    .text(primaryCounty || "Selected County");
-
-  row += 20;
+  const items = [
+    {
+      label: primaryCounty || "Selected County",
+      color: "#7f0000",
+      dashed: false
+    }
+  ];
 
   if (hasComparison && comparisonCountyName) {
-    legend.append("line")
-      .attr("x1", 0)
-      .attr("x2", 22)
-      .attr("y1", row)
-      .attr("y2", row)
-      .attr("stroke", "#d65a5a")
-      .attr("stroke-width", 3)
-      .attr("stroke-dasharray", "6 4");
-
-    legend.append("text")
-      .attr("x", 30)
-      .attr("y", row + 4)
-      .style("font-size", "12px")
-      .text(comparisonCountyName);
-
-    row += 20;
+    items.push({
+      label: comparisonCountyName,
+      color: "#d65a5a",
+      dashed: true
+    });
   }
 
   if (mode === "bivariate") {
-    legend.append("line")
-      .attr("x1", 0)
-      .attr("x2", 22)
-      .attr("y1", row)
-      .attr("y2", row)
-      .attr("stroke", "#1f77b4")
-      .attr("stroke-width", 3)
-      .attr("stroke-dasharray", "6 4");
+    items.push({
+      label: `${primaryCounty || "Selected County"} (${labelize(variable2)})`,
+      color: "#fb03da",
+      dashed: true
+    });
 
-    legend.append("text")
-      .attr("x", 30)
-      .attr("y", row + 4)
-      .style("font-size", "12px")
-      .text(labelize(variable2));
+    if (hasComparison && comparisonCountyName) {
+      items.push({
+        label: `${comparisonCountyName} (${labelize(variable2)})`,
+        color: "#fb0000",
+        dashed: true
+      });
+    }
   }
+
+  const columns = Math.min(items.length, 4);
+  const columnWidth = availableWidth / columns;
+
+  const legend = lineSvg.append("g")
+    .attr("class", "legend-group")
+    .attr("transform", `translate(${legendX}, ${legendY})`);
+
+  const legendItems = legend.selectAll(".legend-item")
+    .data(items)
+    .enter()
+    .append("g")
+    .attr("class", "legend-item")
+    .attr("transform", (d, i) => `translate(${i * columnWidth}, 0)`);
+
+  legendItems.append("line")
+    .attr("x1", 0)
+    .attr("x2", 24)
+    .attr("y1", 0)
+    .attr("y2", 0)
+    .attr("stroke", d => d.color)
+    .attr("stroke-width", 3)
+    .attr("stroke-dasharray", d => d.dashed ? "6 4" : null);
+
+  legendItems.append("text")
+    .attr("x", 32)
+    .attr("y", 4)
+    .style("font-size", "12px")
+    .style("fill", "#1f1f1f")
+    .text(d => d.label)
+    .each(function () {
+      const maxTextWidth = Math.max(columnWidth - 38, 70);
+      const text = d3.select(this);
+      let label = text.text();
+
+      while (this.getComputedTextLength() > maxTextWidth && label.length > 8) {
+        label = label.slice(0, -2);
+        text.text(`${label}…`);
+      }
+    });
 }
 
 function initializeLineChart() {

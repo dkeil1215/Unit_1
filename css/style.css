@@ -199,6 +199,60 @@ header p {
   font-size: 14px;
 }
 
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(31, 18, 18, 0.58);
+}
+
+.modal-backdrop.hidden {
+  display: none;
+}
+
+.modal-card {
+  max-width: 520px;
+  width: 100%;
+  background: #ffffff;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.28);
+  padding: 22px;
+}
+
+.modal-card h2 {
+  margin: 0 0 12px 0;
+  color: var(--accent-dark);
+}
+
+.modal-card p {
+  margin: 0 0 12px 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.modal-card button {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 8px;
+  border: 0;
+  border-radius: 9px;
+  background: var(--accent-dark);
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.modal-card button:hover {
+  background: var(--accent);
+}
+
 @media (max-width: 1180px) {
   #summary-panel {
     grid-template-columns: repeat(3, 1fr);
@@ -245,5 +299,9 @@ header p {
   #barChart,
   #lineChart {
     min-height: 360px;
+  }
+
+  .modal-card {
+    padding: 18px;
   }
 }

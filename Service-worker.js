@@ -1,4 +1,5 @@
-const CACHE_NAME = "bay-env-dashboard-v4";
+const CACHE_NAME = "bay-env-dashboard-v7";
+
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -18,6 +19,7 @@ self.addEventListener("install", event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL))
   );
+
   self.skipWaiting();
 });
 
@@ -29,6 +31,7 @@ self.addEventListener("activate", event => {
           if (key !== CACHE_NAME) {
             return caches.delete(key);
           }
+
           return null;
         })
       )
@@ -39,9 +42,7 @@ self.addEventListener("activate", event => {
 self.addEventListener("fetch", event => {
   const request = event.request;
 
-  // ONLY handle http/https requests
   if (!request.url.startsWith("http")) return;
-
   if (request.method !== "GET") return;
 
   const url = new URL(request.url);
@@ -50,7 +51,6 @@ self.addEventListener("fetch", event => {
     url.pathname.endsWith(".csv") ||
     url.pathname.endsWith(".geojson");
 
-  // Network-first for data
   if (isDataFile) {
     event.respondWith(
       fetch(request)
@@ -61,17 +61,16 @@ self.addEventListener("fetch", event => {
         })
         .catch(() => caches.match(request))
     );
+
     return;
   }
 
-  // Cache-first for everything else
   event.respondWith(
     caches.match(request).then(cached => {
       if (cached) return cached;
 
       return fetch(request).then(response => {
-        // ALSO guard here (extra safety)
-        if (!response || response.status !== 200 || response.type !== "basic") {
+        if (!response || response.status !== 200) {
           return response;
         }
 

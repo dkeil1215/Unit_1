@@ -9,7 +9,7 @@ function updateMap(geoData, singleSummary, bivariateSummary, mapMode, variable, 
     map = L.map("map", { tap: true, zoomControl: true }).setView([37.75, -122.2], 8);
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "&copy; OpenStreetMap contributors"
+      attribution: "&copy; OpenStreetMap contributors | ArcGIS Feature Service"
     }).addTo(map);
   }
 
@@ -97,12 +97,9 @@ function getBivariateColor(valueA, valueB, bivariateSummary) {
 
   if (!valuesA.length || !valuesB.length) return "#fde0dd";
 
-  const cA = classifyThree(valueA, valuesA); // horizontal: low -> high
-  const cB = classifyThree(valueB, valuesB); // vertical: low -> high
+  const cA = classifyThree(valueA, valuesA);
+  const cB = classifyThree(valueB, valuesB);
 
-  // rows are bottom -> top for display logic:
-  // low-low = lightest
-  // high-high = darkest
   const matrix = [
     ["#fde0dd", "#fcbba1", "#fc9272"],
     ["#fb6a4a", "#ef3b2c", "#cb181d"],
@@ -232,10 +229,11 @@ function updateLegend(singleSummary, bivariateSummary, variable, variable2, mapM
         </div>
 
         <div style="margin-top:5px; font-size:10px;">
-          Horizontal: ${labelize(variable)} low → high<br>
-          Vertical: ${labelize(variable2)} low → high
+          Horizontal: ${labelize(variable)} low to high<br>
+          Vertical: ${labelize(variable2)} low to high
         </div>
       `;
+
       return div;
     }
 
